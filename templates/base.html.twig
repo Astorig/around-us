@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    <title>{% block title %}Cat-Cas-Car{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 navbar-bg">
+    <div class="container py-2">
+
+        <a class="navbar-brand" href="{{ path('app_homepage') }}">Cat-Cas-Car <i class="fas fa-cat text-light"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('app_homepage') }}"><i class="fas fa-home"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="nav-profile-img rounded-circle" src="{{ asset('images/cat-profile.png')}}">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Профиль</a>
+                        <a class="dropdown-item" href="#">Создать статью</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Выйти</a>
+                    </div>
+                </li>
+                <li class="nav-item d-flex my-auto">
+                    <a class="btn btn-outline-light my-2 my-sm-0 mr-2" href="#">Войти</a>
+                    <a class="btn btn-outline-light my-2 my-sm-0" href="#">Регистрация</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% block body %}{% endblock %}
+
+<footer class="footer bg-white">
+    <div class="container text-center">
+        <span class="text-muted"><b>Cat-Cas-Car</b> - учебный проект по курсу Symfony</span>
+    </div>
+</footer>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>
