@@ -18,6 +18,15 @@ class UserFixtures extends BaseFixtures
 
     public function loadData(ObjectManager $manager): void
     {
+        $this->create(User::class, function (User $user) {
+            $user
+                ->setEmail('admin@mail.com')
+                ->setFirstName('Администратор')
+                ->setPassword($this->passwordEncoder->encodePassword($user, '123456'))
+                ->setRoles(['ROLE_ADMIN'])
+            ;
+        });
+
         $this->createMany(User::class, 10, function (User $user) {
            $user
                 ->setEmail($this->faker->email)
