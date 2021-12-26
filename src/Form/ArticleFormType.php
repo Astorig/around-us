@@ -23,15 +23,19 @@ class ArticleFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var Article|null $article */
+        $article = $options['data'] ?? null;
+
+        $cannotEditAuthor = $article && $article->getId() && $article->isPublished();
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Укажите название статьи',
                 'help' => 'Не используйте в названии слово "собака"',
                 'required' => false
             ])
-            ->add('body')
-            ->add('publishedAt', null, [
-                'widget' => 'single_text'
+            ->add('body', null, [
+                'rows' => 15
             ])
             ->add('author', EntityType::class, [
                 'class' => User::class,
@@ -40,9 +44,18 @@ class ArticleFormType extends AbstractType
                 },
                 'placeholder' => 'Выберите автора статьи',
                 'invalid_message' => 'Такой автор живёт лишь в сказках',
-                'choices' => $this->userRepository->finAllSortedByName()
+                'choices' => $this->userRepository->finAllSortedByName(),
+                'disabled' => $cannotEditAuthor
             ])
         ;
+
+        if ($options['enable_published_at']) {
+            $builder
+                ->add('publishedAt', null, [
+                    'widget' => 'single_text'
+                ])
+            ;
+        }
 
         $builder->get('body')
             ->addModelTransformer(new CallbackTransformer(
@@ -60,6 +73,7 @@ class ArticleFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'enable_published_at' => false,
         ]);
     }
 }
