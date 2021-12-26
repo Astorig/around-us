@@ -3,32 +3,38 @@
 {% block title %}Регистрация{% endblock %}
 
 {% block body %}
-    <form action="{{ path('app_register') }}" method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
 
-        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputName">Имя</label>
-        <input type="text" name="firstName" id="inputName" class="form-control" required autofocus>
-        <label for="inputPassword">Пароль</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                {{ form_start(registrationForm, {
+                    attr: { class: 'form-signin' }
+                }) }}
+                <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+                {{ form_row(registrationForm.email, {
+                    attr: { placeholder: 'Ваш Email...' },
+                    label_attr: { class: 'sr-only' }
+                }) }}
+                {{ form_row(registrationForm.firstName, {
+                    attr: { placeholder: 'Ваше имя...' },
+                    label_attr: { class: 'sr-only' }
+                }) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    attr: { placeholder: 'Ваш пароль...' },
+                    label_attr: { class: 'sr-only' }
+                }) }}
+                {{ form_row(registrationForm.agreeTerms, {
+                    label: 'Согласен с условиями'
+                }) }}
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Согласен с условиями
-            </label>
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Зарегистрироваться
+                </button>
+                {{ form_end(registrationForm) }}
+
+            </div>
         </div>
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Зарегистрироваться
-        </button>
-    </form>
+    </div>
 {% endblock %}
 

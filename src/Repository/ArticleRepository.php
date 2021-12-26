@@ -56,25 +56,13 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
     
     private function published(QueryBuilder $qb = null)
     {
         return $this->getOrCreateQueryBuilder($qb)->andWhere('a.publishedAt IS NOT NULL');
     }
     
-    private function latest(QueryBuilder $qb = null)
+    public function latest(QueryBuilder $qb = null)
     {
         return $this->getOrCreateQueryBuilder($qb)->orderBy('a.publishedAt', 'DESC');
     }

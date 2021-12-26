@@ -8,9 +8,12 @@ use Doctrine\Common\Collections\Criteria;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @Assert\EnableAutoMapping()
  */
 class Article
 {
@@ -24,12 +27,14 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="У вашей статьи должен быть заголовок")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=100, unique=true)
      * @Gedmo\Slug(fields={"title"})
+     * @Assert\DisableAutoMapping()
      */
     private $slug;
 
@@ -87,7 +92,7 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -259,5 +264,23 @@ class Article
         $this->author = $author;
 
         return $this;
+    }
+
+    public function isPublished()
+    {
+        return null != $this->getPublishedAt();
+    }
+
+    /**
+     * @Assert\Callback()
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if (mb_stripos($this->getTitle(), 'собак') !== false) {
+            $context->buildViolation('Про собак писать запрещено')
+                ->atPath('title')
+                ->addViolation()
+            ;
+        }
     }
 }
