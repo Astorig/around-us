@@ -16,9 +16,9 @@
                     <div class="text-muted align-self-center">
                         <img
                             class="article-author-img rounded-circle mr-2"
-                            src="{{ article.authorAvatarPath }}"
+                            src="{{ article.author.avatarUrl }}"
                         >
-                        {{ article.author }}
+                        {{ article.author.firstName }}
                     </div>
                     <div class="text-muted align-self-center ml-4">{{ article.publishedAt ? article.publishedAt|ago : 'Неопубликована'}}</div>
                     <div
