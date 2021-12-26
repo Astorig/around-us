@@ -61,7 +61,9 @@ class ArticlesController extends AbstractController
      */
     public function edit(Article $article, EntityManagerInterface $em, Request $request)
     {
-        $form = $this->createForm(ArticleFormType::class, $article);
+        $form = $this->createForm(ArticleFormType::class, $article, [
+            'enable_published_at' => true
+        ]);
 
         if ($this->handleFormRequest($form, $em, $request)) {
             $this->addFlash('flash_message', 'Статья успешно изменена');
