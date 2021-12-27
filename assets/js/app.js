@@ -10,3 +10,4 @@ import '../css/app.css';
 
 require('bootstrap');
 require('./like.js');
+require('./bootstrap_file_field.js');

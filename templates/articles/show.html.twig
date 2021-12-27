@@ -8,7 +8,9 @@
 {% block content %}
     <div class="col-sm-12 p-2">
         <div class="media d-flex align-content-center">
-            <img class="article-detail-image align-self-start mr-3 rounded" src="{{ asset(article.imagePath) }}">
+            <a href="{{ upload_asset('article_uploads_url', article.imageFilename) }}" target="_blank">
+                <img class="article-detail-image align-self-start mr-3 rounded" src="{{ article.imageFilename | imagine_filter('articles_detail') }}">
+            </a>
             <div class="media-body d-inline-block align-self-center">
                 <h1 class="mb-2">{{ article.title }}</h1>
                 {% include 'partial/article_tags.html.twig' with { tags: article.tags } %}
