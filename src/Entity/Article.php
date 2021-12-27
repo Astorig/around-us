@@ -171,11 +171,6 @@ class Article
         return $this;
     }
     
-    public function getImagePath()
-    {
-        return 'images/' . $this->getImageFilename();
-    }
-    
     public function getAuthorAvatarPath()
     {
         return sprintf(

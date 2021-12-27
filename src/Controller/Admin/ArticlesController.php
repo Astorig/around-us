@@ -5,13 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,11 +40,11 @@ class ArticlesController extends AbstractController
      * @Route("/admin/articles/create", name="app_admin_articles_create")
      * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
-    public function create(EntityManagerInterface $em, Request $request)
+    public function create(EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
-        $form = $this->createForm(ArticleFormType::class);
+        $form = $this->createForm(ArticleFormType::class, new Article());
 
-        if ($this->handleFormRequest($form, $em, $request)) {
+        if ($this->handleFormRequest($form, $em, $request, $articleFileUploader)) {
             $this->addFlash('flash_message', 'Статья успешно создана');
 
             return $this->redirectToRoute('app_admin_articles');
@@ -59,13 +60,13 @@ class ArticlesController extends AbstractController
      * @Route("/admin/articles/{id}/edit", name="app_admin_articles_edit")
      * @IsGranted("MANAGE", subject="article")
      */
-    public function edit(Article $article, EntityManagerInterface $em, Request $request)
+    public function edit(Article $article, EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
         $form = $this->createForm(ArticleFormType::class, $article, [
             'enable_published_at' => true
         ]);
 
-        if ($this->handleFormRequest($form, $em, $request)) {
+        if ($this->handleFormRequest($form, $em, $request, $articleFileUploader)) {
             $this->addFlash('flash_message', 'Статья успешно изменена');
 
             return $this->redirectToRoute('app_admin_articles_edit', ['id' => $article->getId()]);
@@ -77,12 +78,21 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    private function handleFormRequest(FormInterface $form, EntityManagerInterface $em, Request $request)
+    private function handleFormRequest(FormInterface $form, EntityManagerInterface $em, Request $request, FileUploader $articleFileUploader)
     {
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Article $article */
             $article = $form->getData();
+
+            /** @var UploadedFile|null $image */
+            $image = $form->get('image')->getData();
+
+            $fileName = $articleFileUploader->uploadFile($image, $article->getImageFilename());
+
+            if ($image) {
+                $article->setImageFilename($fileName);
+            }
 
             $em->persist($article);
             $em->flush();
