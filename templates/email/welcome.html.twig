@@ -1,0 +1,10 @@
+{% extends 'email/emailBase.html.twig' %}
+
+{% block content %}
+    <div>
+        <p class="body_text">Наконец-то ты с нами дорогой {{ email.toName }}</p>
+    </div>
+    <div>
+        <img src="{{ email.image('@images/glass.jpeg') }}" width="80" height="80">
+    </div>
+{% endblock %}

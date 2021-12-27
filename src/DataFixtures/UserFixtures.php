@@ -25,6 +25,7 @@ class UserFixtures extends BaseFixtures
                 ->setFirstName('Администратор')
                 ->setPassword($this->passwordEncoder->encodePassword($user, '123456'))
                 ->setRoles(['ROLE_ADMIN'])
+                ->setSubscribeToNewsletter(true)
             ;
             $manager->persist(new ApiToken($user));
         });
@@ -34,6 +35,7 @@ class UserFixtures extends BaseFixtures
                 ->setEmail($this->faker->email)
                ->setFirstName($this->faker->firstName)
                ->setPassword($this->passwordEncoder->encodePassword($user, '123456'))
+               ->setSubscribeToNewsletter($this->faker->boolean)
            ;
            $manager->persist(new ApiToken($user));
         });
