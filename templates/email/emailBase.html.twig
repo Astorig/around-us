@@ -1,0 +1,23 @@
+{% apply inline_css(source('@css/email/email.css')) %}
+    <!doctype html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <title>{{ email.subject }}</title>
+    </head>
+    <body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <h1><a href="{{ url('app_homepage') }}">Cat-Cas-Car</a></h1>
+                </td>
+            </tr>
+        </table>
+        {% block content %}
+        {% endblock %}
+    </div>
+    </body>
+    </html>
+{% endapply %}

@@ -75,4 +75,14 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $qb ?? $this->createQueryBuilder('a');
     }
+
+    public function findAllPublishedLastWeek()
+    {
+        return $this->published($this->latest())
+            ->andWhere('a.publishedAt >= :week_ago')
+            ->setParameter('week_ago', new \DateTime('-1 week'))
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
