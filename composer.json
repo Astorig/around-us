@@ -9,10 +9,17 @@
             "role": "Creator"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Astorig/article-content-provider-bundle.git"
+        }
+    ],
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "aleksey/article-content-provider-bundle": "dev-master",
         "composer/package-versions-deprecated": "1.11.99.4",
         "demontpx/parsedown-bundle": "^3.0",
         "doctrine/annotations": "^1.0",
