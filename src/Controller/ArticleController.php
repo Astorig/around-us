@@ -17,9 +17,15 @@ class ArticleController extends AbstractController
     public function homepage(ArticleRepository $repository)
     {
         $articles = $repository->findLatestPublished();
+
+        $banner = rand(0, 1)
+            ? 'images/cat-banner1.jpg'
+            : 'images/cat-banner.jpg'
+        ;
         
         return $this->render('articles/homepage.html.twig', [
             'articles' => $articles,
+            'banner' => $banner
         ]);
     }
 
