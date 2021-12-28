@@ -1,0 +1,3 @@
+catcascar_article_content_provider:
+  is_bold: true
+  article_word_decorator: App\Service\RedHtmlWordDecorator

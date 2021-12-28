@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31fe5587537d11472959b333900c7edb",
+    "content-hash": "57221cf15002aa52764afaa9b0894829",
     "packages": [
+        {
+            "name": "aleksey/article-content-provider-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Astorig/article-content-provider-bundle.git",
+                "reference": "4aa3cf3572e8c3361cb5d9111bff428bb1b6cb7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Astorig/article-content-provider-bundle/zipball/4aa3cf3572e8c3361cb5d9111bff428bb1b6cb7f",
+                "reference": "4aa3cf3572e8c3361cb5d9111bff428bb1b6cb7f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5"
+            },
+            "default-branch": true,
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "CatCasCarSymfony\\ArticleContentProviderBundle\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksey Ukhov",
+                    "email": "a9086666032@gmail.com"
+                }
+            ],
+            "description": "Генератор контента статьи",
+            "support": {
+                "source": "https://github.com/Astorig/article-content-provider-bundle/tree/master",
+                "issues": "https://github.com/Astorig/article-content-provider-bundle/issues"
+            },
+            "time": "2021-12-28T23:38:01+00:00"
+        },
         {
             "name": "behat/transliterator",
             "version": "v1.3.0",
@@ -10454,7 +10494,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "aleksey/article-content-provider-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

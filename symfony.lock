@@ -1,4 +1,7 @@
 {
+    "aleksey/article-content-provider-bundle": {
+        "version": "dev-master"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
